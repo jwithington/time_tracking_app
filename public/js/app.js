@@ -12,3 +12,19 @@ class TimersDashboard extends React.component {
     );
   }
 }
+
+class EditableTimerList extends React.component {
+  render() {
+    return (
+      <div id="timers">
+        <EditableTimer
+          title='Learn React'
+          project='Web Learning'
+          elapsed='8986300'
+          runningSince={null}
+          editFormOpen={true}
+        />
+      </div>
+    );
+  }
+}
