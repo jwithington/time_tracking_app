@@ -22,7 +22,7 @@ class EditableTimerList extends React.component {
           project='Web Learning'
           elapsed='8986300'
           runningSince={null}
-          editFormOpen={true}
+          editFormOpen={true} // boolean to tell EditableTimer which sub-component to render
         />
       </div>
     );
