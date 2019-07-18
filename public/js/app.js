@@ -22,14 +22,14 @@ class EditableTimerList extends React.Component {
           project='Web Learning'
           elapsed='8986300' // in milliseconds because thats what JS uses for time  
           runningSince={null}
-          editFormOpen={false}
+          editFormOpen={true}
         />
         <EditableTimer 
           title='Learn Extreme Ironing'
           project='Domestic'
           elapsed='389095'
           runningSince={null}
-          editFormOpen={true}
+          editFormOpen={false}
         />
       </div>
     );
@@ -137,3 +137,8 @@ class Timer extends React.Component {
     );
   }
 }
+
+ReactDOM.render(
+  <TimersDashboard />,
+  document.getElementById('content')
+);
