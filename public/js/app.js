@@ -22,14 +22,14 @@ class EditableTimerList extends React.Component {
           project='Web Learning'
           elapsed='8986300' // in milliseconds because thats what JS uses for time  
           runningSince={null}
-          editFormOpen={true}
+          editFormOpen={false}
         />
         <EditableTimer 
           title='Learn Extreme Ironing'
           project='Domestic'
           elapsed='389095'
           runningSince={null}
-          editFormOpen={false}
+          editFormOpen={true} // boolean to tell EditableTimer which sub-component to render
         />
       </div>
     );
