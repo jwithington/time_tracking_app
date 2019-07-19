@@ -1,9 +1,30 @@
 class TimersDashboard extends React.Component { // this will own state for Timer Data
+
+  state = { // this is possible, again, due to babel's transform-class-properties
+    timers: [
+      {
+        title: 'Go for a run',
+        project: 'Gym chores',
+        id: uuid.v4(),
+        elapsed: 5456099,
+        runningSince: Date.now(),
+      },
+      {
+        title: 'Bake lasagna',
+        project: 'Kitchen Chores',
+        id: uuid.v4(),
+        elapsed: 1273998,
+        runningSince: null,
+      }
+    ]
+  }
   render() {
     return (
       <div className="ui three column centered grid">
         <div className="column">
-          <EditableTimerList />
+          <EditableTimerList 
+            timers={this.state.timers}
+          />
           <ToggleableTimerForm
             isOpen={true} // when open, the form is being displayed
           />
@@ -15,22 +36,20 @@ class TimersDashboard extends React.Component { // this will own state for Timer
 
 class EditableTimerList extends React.Component {
   render() {
+    const timers = this.props.timers.map((timer)=> (
+      <EditableTimer
+        key={timer.id}
+        id={timer.id} // preparing to communicate up via calling a function and passing the ID up
+        title={timer.title}
+        project={timer.project}
+        elapsed={timer.elapsed}
+        runningSince={timer.runningSince}
+      />
+    ));
     return (
       <div id="timers">
-        <EditableTimer
-          title='Learn React'
-          project='Web Learning'
-          elapsed='8986300' // in milliseconds because thats what JS uses for time  
-          runningSince={null}
-          editFormOpen={false}
-        />
-        <EditableTimer 
-          title='Learn Extreme Ironing'
-          project='Domestic'
-          elapsed='389095'
-          runningSince={null}
-          editFormOpen={true} // boolean to tell EditableTimer which sub-component to render
-        />
+        {timers}  
+      />
       </div>
     );
   }
