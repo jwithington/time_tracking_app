@@ -1,4 +1,4 @@
-class TimersDashboard extends React.Component {
+class TimersDashboard extends React.Component { // this will own state for Timer Data
   render() {
     return (
       <div className="ui three column centered grid">
@@ -36,7 +36,7 @@ class EditableTimerList extends React.Component {
   }
 }
 
-class EditableTimer extends React.Component {
+class EditableTimer extends React.Component { // will manage state of its timer edit form
   render() {
     
     if (this.props.editFormOpen) {
@@ -89,7 +89,7 @@ class TimerForm extends React.Component {
   }
 }
 
-class ToggleableTimerForm extends React.Component {
+class ToggleableTimerForm extends React.Component { // will manage state of its own form visibility
   render() {
     if (this.props.isOpen) {
       return (
