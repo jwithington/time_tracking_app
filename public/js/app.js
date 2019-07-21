@@ -48,8 +48,7 @@ class EditableTimerList extends React.Component {
     ));
     return (
       <div id="timers">
-        {timers}  
-      />
+        {timers}
       </div>
     );
   }
@@ -58,7 +57,8 @@ class EditableTimerList extends React.Component {
 class EditableTimer extends React.Component { // will manage state of its timer edit form
   state = {
     editFormOpen: false,
-  }
+  };
+
   render() {
     if (this.state.editFormOpen) {
       return (
@@ -112,15 +112,27 @@ class TimerForm extends React.Component {
 }
 
 class ToggleableTimerForm extends React.Component { // will manage state of its own form visibility
+
+  state = {
+    isOpen: false,
+  }
+
+  handleFormOpen = () => {
+    this.setState({ isOpen: true });
+  };
+
   render() {
-    if (this.props.isOpen) {
+    if (this.state.isOpen) {
       return (
         <TimerForm />
       );
     } else {
       return (
         <div className="ui basic content center aligned segment">
-          <button className="ui basic button icon">
+          <button 
+            className='ui basic button icon'
+            onClick={this.handleFormOpen} // causes component to re-render, then, since it's true, it returns the above!
+          >
             <i className="plus icon" />
           </button>
         </div>
