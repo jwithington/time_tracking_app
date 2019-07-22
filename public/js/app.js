@@ -82,6 +82,11 @@ class EditableTimer extends React.Component { // will manage state of its timer 
 }
 
 class TimerForm extends React.Component {
+  state = {
+    title: this.props.title || '', // either it passes down existing prop, or it creates a timer so the string is empty
+    project: this.props.project || '',
+  };
+
   render() {
     const submitText = this.props.title ? 'Update' : 'Create';
     return (
