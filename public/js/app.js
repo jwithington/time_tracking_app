@@ -18,6 +18,18 @@ class TimersDashboard extends React.Component { // this will own state for Timer
       }
     ]
   }
+
+  handleCreateFormSubmit = (timer) => {
+    this.createTimer(timer);
+  };
+
+  createTimer = (timer) => {
+    const t = helpers.newTimer(timer);
+    this.setState({
+      timers: this.state.timers.concat(t), // this appends the new timer to our timers array
+    });
+  };
+
   render() {
     return (
       <div className="ui three column centered grid">
@@ -26,7 +38,7 @@ class TimersDashboard extends React.Component { // this will own state for Timer
             timers={this.state.timers}
           />
           <ToggleableTimerForm
-            isOpen={true} // when open, the form is being displayed
+            onFormSubmit={this.handleCreateFormSubmit}
           />
         </div>
       </div>
@@ -161,7 +173,7 @@ class ToggleableTimerForm extends React.Component { // will manage state of its 
   };
 
   handleFormSubmit = (timer) => {
-    this.props.onFormSubmit(timer);
+    this.props.onFormSubmit(timer); // this is an object in TimerForm
     this.setState({ isOpen: false })
   };
 
