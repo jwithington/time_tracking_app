@@ -139,6 +139,7 @@ class EditableTimer extends React.Component { // will manage state of its timer 
     } else {
       return (
         <Timer 
+          id={this.props.id}
           title={this.props.title}
           project={this.props.project}
           elapsed={this.props.elapsed}
@@ -258,10 +259,10 @@ class ToggleableTimerForm extends React.Component { // will manage state of its 
   }
 }
 
-class Timer extends React.Component {
 
-  handleTrashClick = () => { // handles trash button click events
-    this.props.onTrashClick(this.props.id); 
+class Timer extends React.Component {
+  handleTrashClick = () => {
+    this.props.onTrashClick(this.props.id);
   };
 
   render() {
@@ -287,11 +288,11 @@ class Timer extends React.Component {
             >
               <i className="edit icon" />
             </span>
-            <span 
-              className="right floated trash icon"
-              onClick={this.handleTrashClick} // this is how we wire the function to the button
+                       <span
+              className='right floated trash icon'
+              onClick={this.handleTrashClick} // this is how we wire the function to the button 
             >
-              <i className="trash icon" />
+              <i className='trash icon' />
             </span>
           </div>
         </div>
