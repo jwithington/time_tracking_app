@@ -27,25 +27,35 @@ class TimersDashboard extends React.Component { // this will own state for Timer
     this.updateTimer(attrs);
   };
 
+  handleTrashClick = (timerId) => {
+    this.deleteTimer(timerId);
+  };
+  
   createTimer = (timer) => {
     const t = helpers.newTimer(timer);
     this.setState({
       timers: this.state.timers.concat(t), // this appends the new timer to our timers array
     });
   };
-
+  
   updateTimer = (attrs) => {
     this.setState({
       timers: this.state.timers.map((timer) => { // the call is evaluated and then the property timers is set to the result
         if (timer.id === attrs.id) {
           return Object.assign({}, timer, { // returns news object with timer's updated attributes; this helps us to treat state as immutable
-            title: attrs.title,
-            project: attrs.project,
-          });
+          title: attrs.title,
+          project: attrs.project,
+        });
         } else {
           return timer;
         }
       }),
+    });
+  };
+
+  deleteTimer = (timerId) => {
+    this.setState({
+      timers: this.state.timers.filter(t => t.id !== timerId) // returns new array with the one matching timerId removed
     });
   };
 
@@ -56,6 +66,7 @@ class TimersDashboard extends React.Component { // this will own state for Timer
           <EditableTimerList 
             timers={this.state.timers}
             onFormSubmit={this.handleEditFormSubmit}
+            onTrashClick={this.handleTrashClick} // pass down handleTrashClick as a prop
           />
           <ToggleableTimerForm
             onFormSubmit={this.handleCreateFormSubmit}
@@ -77,6 +88,7 @@ class EditableTimerList extends React.Component {
         elapsed={timer.elapsed}
         runningSince={timer.runningSince}
         onFormSubmit={this.props.onFormSubmit}
+        onTrashClick={this.props.onTrashClick} // proxies the function to get the props
       />
     ));
     return (
@@ -132,6 +144,7 @@ class EditableTimer extends React.Component { // will manage state of its timer 
           elapsed={this.props.elapsed}
           runningSince={this.props.runningSince}
           onEditClick={this.handleEditClick}
+          onTrashClick={this.props.onTrashClick} // proxies the function to give the id of deleted timer
         />
       );
     }
@@ -246,6 +259,11 @@ class ToggleableTimerForm extends React.Component { // will manage state of its 
 }
 
 class Timer extends React.Component {
+
+  handleTrashClick = () => { // handles trash button click events
+    this.props.onTrashClick(this.props.id); 
+  };
+
   render() {
     const elapsedString = helpers.renderElapsedString(this.props.elapsed); // in helpers.js
     return (
@@ -262,14 +280,20 @@ class Timer extends React.Component {
               {elapsedString}
             </h2>
           </div>
-        </div>
-        <div className="extra content">
-          <span 
-            className="right floated edit icon"
-            onClick={this.props.onEditClick}
-          >
-            <i className="trash icon" />
-          </span>
+          <div className="extra content">
+            <span 
+              className="right floated edit icon"
+              onClick={this.props.onEditClick}
+            >
+              <i className="edit icon" />
+            </span>
+            <span 
+              className="right floated trash icon"
+              onClick={this.handleTrashClick} // this is how we wire the function to the button
+            >
+              <i className="trash icon" />
+            </span>
+          </div>
         </div>
         <div className="ui bottom attached blue basic button">
           Start
