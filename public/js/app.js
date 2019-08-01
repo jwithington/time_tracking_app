@@ -261,12 +261,25 @@ class ToggleableTimerForm extends React.Component { // will manage state of its 
 
 
 class Timer extends React.Component {
+
+  componentDidMount() {
+    this.forceUpdateInterval = setInterval(() =>
+      this.forceUpdateInterval(), 50);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.forceUpdateInterval);
+  }
+
+
   handleTrashClick = () => {
     this.props.onTrashClick(this.props.id);
   };
 
   render() {
-    const elapsedString = helpers.renderElapsedString(this.props.elapsed); // in helpers.js
+    const elapsedString = helpers.renderElapsedString( // in helpers.js
+      this.props.elapsed, this.props.runningSince
+    ); 
     return (
       <div className="ui centered card">
         <div className="content">
